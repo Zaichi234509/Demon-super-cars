@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DEMON SUPER CARS — The Four Progenitors</title>
+  <meta name="description" content="The four archdemons of Tempest — Diablo, Testarossa, Ultima, Carrera — reborn as the supercars they're named after. A Three.js + GSAP showcase." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- GSAP (classic scripts, loaded before our modules) -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+  <!-- Three.js as ES modules via import map -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+
+  <!-- ======= PRELOADER ======= -->
+  <div id="preloader" aria-hidden="true">
+    <div class="pre-inner">
+      <div class="pre-sigil">
+        <svg viewBox="0 0 64 64" fill="none">
+          <path d="M32 4 L38 26 L60 32 L38 38 L32 60 L26 38 L4 32 L26 26 Z" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="32" cy="32" r="4" fill="currentColor"/>
+        </svg>
+      </div>
+      <div class="pre-num" id="pre-num">00</div>
+      <div class="pre-bar"><div class="pre-bar-fill" id="pre-bar"></div></div>
+      <div class="pre-label">SUMMONING THE FOUR</div>
+    </div>
+  </div>
+
+  <!-- ======= FIXED LAYERS ======= -->
+  <canvas id="webgl"></canvas>
+  <div id="grain" aria-hidden="true"></div>
+  <div id="no-webgl" class="hidden">WebGL is not available in this browser — the 3D showroom is disabled, but the page still works.</div>
+
+  <div id="cursor-dot" aria-hidden="true"></div>
+  <div id="cursor-ring" aria-hidden="true"></div>
+
+  <div id="progress" aria-hidden="true"></div>
+
+  <!-- ======= HEADER ======= -->
+  <header id="header">
+    <a href="#hero" class="logo" data-magnetic>DEMON<sup>◈</sup>CARS</a>
+    <nav id="nav">
+      <a href="#diablo" data-hover>01 · Diablo</a>
+      <a href="#testarossa" data-hover>02 · Testarossa</a>
+      <a href="#ultima" data-hover>03 · Ultima</a>
+      <a href="#carrera" data-hover>04 · Carrera</a>
+      <a href="#forge" class="nav-forge" data-hover>⚒ Forge</a>
+    </nav>
+    <div class="tempest-badge" data-hover>TEMPEST&nbsp;FEDERATION</div>
+  </header>
+
+  <!-- ======= SIDE DOTS ======= -->
+  <nav id="side-dots" aria-label="Sections">
+    <span class="dot" data-dot="hero" data-label="Top"></span>
+    <span class="dot" data-dot="diablo" data-label="Diablo"></span>
+    <span class="dot" data-dot="testarossa" data-label="Testarossa"></span>
+    <span class="dot" data-dot="ultima" data-label="Ultima"></span>
+    <span class="dot" data-dot="carrera" data-label="Carrera"></span>
+    <span class="dot" data-dot="forge" data-label="Forge"></span>
+  </nav>
+
+  <main id="main">
+
+    <!-- ======= HERO ======= -->
+    <section class="hero" id="hero" data-dot="hero">
+      <p class="kicker reveal">Tensei Slime × Automobile — the four archdemons of Tempest</p>
+      <h1 class="mega">
+        <span class="line"><span class="line-inner">DEMON</span></span>
+        <span class="line"><span class="line-inner outline">SUPER&nbsp;CARS</span></span>
+      </h1>
+      <div class="hero-foot">
+        <p class="sub reveal">Every demon who serves Rimuru Tempest carries the name of a
+        supercar. We summoned all four onto one showroom floor.</p>
+        <div class="scroll-hint" id="scroll-hint">
+          <span class="sh-text">SCROLL TO ENTER</span>
+          <span class="sh-line"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======= MARQUEE ======= -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>DIABLO <i>✦</i> TESTAROSSA <i>✦</i> ULTIMA <i>✦</i> CARRERA <i>✦</i>&nbsp;</span>
+        <span>DIABLO <i>✦</i> TESTAROSSA <i>✦</i> ULTIMA <i>✦</i> CARRERA <i>✦</i>&nbsp;</span>
+        <span>DIABLO <i>✦</i> TESTAROSSA <i>✦</i> ULTIMA <i>✦</i> CARRERA <i>✦</i>&nbsp;</span>
+        <span>DIABLO <i>✦</i> TESTAROSSA <i>✦</i> ULTIMA <i>✦</i> CARRERA <i>✦</i>&nbsp;</span>
+      </div>
+    </div>
+
+    <!-- ======= 01 DIABLO ======= -->
+    <section class="car" id="diablo" data-car="diablo" data-dot="diablo" style="--accent:#ff2222">
+      <div class="car-top reveal">
+        <span class="car-index">01 / NOIR</span>
+        <span class="car-title">THE BLACK PROGENITOR</span>
+        <span class="model-chip" data-model="diablo">MODEL · PLACEHOLDER</span>
+      </div>
+      <div class="car-body">
+        <h2 class="car-name" data-split>DIABLO</h2>
+        <p class="car-alias reveal">Lamborghini Diablo <em>·</em> 1991</p>
+        <p class="car-lore reveal">The Black Progenitor. Diablo answered Rimuru's call and
+        became his right hand — the demon who bends souls to his will. In machine form,
+        the car that wore the name like a war cry: a 5.7-litre V12, scissor doors,
+        and no apologies. Noir rides at the head of the Four.</p>
+        <ul class="specs">
+          <li class="reveal"><span class="num" data-count="530">0</span><span class="unit">HP</span><span class="label">SV · V12 5.7L</span></li>
+          <li class="reveal"><span class="num" data-count="330">0</span><span class="unit">KM/H</span><span class="label">Top speed</span></li>
+          <li class="reveal"><span class="num" data-count="3.9" data-dec="1">0</span><span class="unit">SEC</span><span class="label">0–100 km/h</span></li>
+          <li class="reveal"><span class="num static" >1991</span><span class="unit">A.D.</span><span class="label">Model year</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ======= 02 TESTAROSSA ======= -->
+    <section class="car" id="testarossa" data-car="testarossa" data-dot="testarossa" style="--accent:#ff4a1c">
+      <div class="car-top reveal">
+        <span class="car-index">02 / BLANC</span>
+        <span class="car-title">THE WHITE PROGENITOR</span>
+        <span class="model-chip" data-model="testarossa">MODEL · PLACEHOLDER</span>
+      </div>
+      <div class="car-body">
+        <h2 class="car-name" data-split>TESTAROSSA</h2>
+        <p class="car-alias reveal">Ferrari Testarossa <em>·</em> 1988</p>
+        <p class="car-lore reveal">The White Progenitor — Rimuru's blade, an assassin with
+        white hair and a quiet smile. Her name is Italian for "red head", and the car
+        that gave it: the flat-12 icon of the eighties with the side strakes that
+        defined a whole decade of supercars.</p>
+        <ul class="specs">
+          <li class="reveal"><span class="num" data-count="390">0</span><span class="unit">HP</span><span class="label">Flat-12 4.9L</span></li>
+          <li class="reveal"><span class="num" data-count="280">0</span><span class="unit">KM/H</span><span class="label">Top speed</span></li>
+          <li class="reveal"><span class="num" data-count="5.5" data-dec="1">0</span><span class="unit">SEC</span><span class="label">0–100 km/h</span></li>
+          <li class="reveal"><span class="num static">1988</span><span class="unit">A.D.</span><span class="label">Model year</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ======= 03 ULTIMA ======= -->
+    <section class="car" id="ultima" data-car="ultima" data-dot="ultima" style="--accent:#a55bff">
+      <div class="car-top reveal">
+        <span class="car-index">03 / VIOLET</span>
+        <span class="car-title">THE PURPLE PROGENITOR</span>
+        <span class="model-chip" data-model="ultima">MODEL · PLACEHOLDER</span>
+      </div>
+      <div class="car-body">
+        <h2 class="car-name" data-split>ULTIMA</h2>
+        <p class="car-alias reveal">Ultima GTR <em>·</em> 2006</p>
+        <p class="car-lore reveal">The Purple Progenitor — Chief Prosecutor of Tempest,
+        the one who makes criminals regret every sentence. Named after the British-built
+        rocket that once lapped a Ferrari Enzo on the Top Gear track: 720 horsepower,
+        2.3 seconds to 60, zero subtlety.</p>
+        <ul class="specs">
+          <li class="reveal"><span class="num" data-count="720">0</span><span class="unit">HP</span><span class="label">LS7 7.0L V8</span></li>
+          <li class="reveal"><span class="num" data-count="402">0</span><span class="unit">KM/H</span><span class="label">Top speed · 250 mph</span></li>
+          <li class="reveal"><span class="num" data-count="2.3" data-dec="1">0</span><span class="unit">SEC</span><span class="label">0–60 mph</span></li>
+          <li class="reveal"><span class="num static">2006</span><span class="unit">A.D.</span><span class="label">Model year</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ======= 04 CARRERA ======= -->
+    <section class="car" id="carrera" data-car="carrera" data-dot="carrera" style="--accent:#ffd90b">
+      <div class="car-top reveal">
+        <span class="car-index">04 / JAUNE</span>
+        <span class="car-title">THE YELLOW PROGENITOR</span>
+        <span class="model-chip" data-model="carrera">MODEL · PLACEHOLDER</span>
+      </div>
+      <div class="car-body">
+        <h2 class="car-name" data-split>CARRERA</h2>
+        <p class="car-alias reveal">Porsche Carrera GT <em>·</em> 2003</p>
+        <p class="car-lore reveal">The Yellow Progenitor — Chief Justice of Tempest's
+        Supreme Court. Her verdict on the car that shares her name: guilty of
+        perfection. The last naturally aspirated V10 from the House of Stuttgart,
+        a 250&nbsp;km/h scalpel dressed in yellow.</p>
+        <ul class="specs">
+          <li class="reveal"><span class="num" data-count="612">0</span><span class="unit">HP</span><span class="label">V10 5.7L · 8200 rpm</span></li>
+          <li class="reveal"><span class="num" data-count="330">0</span><span class="unit">KM/H</span><span class="label">Top speed</span></li>
+          <li class="reveal"><span class="num" data-count="3.9" data-dec="1">0</span><span class="unit">SEC</span><span class="label">0–100 km/h</span></li>
+          <li class="reveal"><span class="num static">2003</span><span class="unit">A.D.</span><span class="label">Model year</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ======= FORGE ======= -->
+    <section class="forge" id="forge" data-dot="forge">
+      <p class="kicker reveal">THE FORGE · IMAGE → GLB</p>
+      <h2 class="forge-title">
+        <span class="line"><span class="line-inner">TURN A PIC</span></span>
+        <span class="line"><span class="line-inner outline">INTO A MACHINE</span></span>
+      </h2>
+      <p class="forge-sub reveal">The showroom loads <code>/models/&lt;name&gt;.glb</code> for each demon
+      and falls back to a placeholder if it's missing. Drop your own 3D models in
+      three steps — every tool below has a free tier.</p>
+
+      <ol class="steps">
+        <li class="reveal"><span class="step-n">1</span><div><strong>Pick an image.</strong> Clean, front-three-quarter shot of the car on a simple background — the four renders in <code>/images</code> are ready to use.</div></li>
+        <li class="reveal"><span class="step-n">2</span><div><strong>Generate the mesh.</strong> Upload it to a free AI image-to-3D tool and wait ~1–2 minutes.</div></li>
+        <li class="reveal"><span class="step-n">3</span><div><strong>Download <code>.glb</code></strong> and save it as <code>models/diablo.glb</code>, <code>models/testarossa.glb</code>, <code>models/ultima.glb</code> or <code>models/carrera.glb</code>. Keep it under ~5&nbsp;MB — decimate in Blender if needed.</div></li>
+      </ol>
+
+      <div class="tools">
+        <a class="tool reveal" href="https://www.meshy.ai" target="_blank" rel="noopener" data-hover>
+          <span class="tool-name">Meshy</span><span class="tool-desc">Image → 3D with PBR textures, free monthly credits. GLB export.</span><span class="tool-url">meshy.ai ↗</span>
+        </a>
+        <a class="tool reveal" href="https://www.tripo3d.ai" target="_blank" rel="noopener" data-hover>
+          <span class="tool-name">Tripo AI</span><span class="tool-desc">High-fidelity image-to-3D, auto-retopology & texture optimization. Free tier.</span><span class="tool-url">tripo3d.ai ↗</span>
+        </a>
+        <a class="tool reveal" href="https://lumalabs.ai/genie" target="_blank" rel="noopener" data-hover>
+          <span class="tool-name">Luma Genie</span><span class="tool-desc">Genie image-to-3D — free, fast, downloads straight to GLB.</span><span class="tool-url">lumalabs.ai/genie ↗</span>
+        </a>
+        <a class="tool reveal" href="https://sloyd.ai" target="_blank" rel="noopener" data-hover>
+          <span class="tool-name">Sloyd</span><span class="tool-desc">Image-to-3D for clean, game-ready assets. Generous free allowance.</span><span class="tool-url">sloyd.ai ↗</span>
+        </a>
+        <a class="tool reveal" href="https://www.csm.ai/ai-3d" target="_blank" rel="noopener" data-hover>
+          <span class="tool-name">Common Sense Machines</span><span class="tool-desc">One image in, textured 3D model out. Free trial, no sign-up friction.</span><span class="tool-url">csm.ai/ai-3d ↗</span>
+        </a>
+        <a class="tool reveal" href="https://www.blender.org" target="_blank" rel="noopener" data-hover>
+          <span class="tool-name">Blender <em class="free-tag">FREE</em></span><span class="tool-desc">Polish the result: decimate the mesh, fix UVs, re-export a slim .glb for the web.</span><span class="tool-url">blender.org ↗</span>
+        </a>
+      </div>
+
+      <div class="samples reveal">
+        <p class="samples-label">FEED THESE INTO THE CONVERTER</p>
+        <div class="samples-row">
+          <figure><img src="images/diablo.jpg" alt="Render of the Diablo" loading="lazy" /><figcaption>diablo.jpg</figcaption></figure>
+          <figure><img src="images/testarossa.jpg" alt="Render of the Testarossa" loading="lazy" /><figcaption>testarossa.jpg</figcaption></figure>
+          <figure><img src="images/ultima.jpg" alt="Render of the Ultima" loading="lazy" /><figcaption>ultima.jpg</figcaption></figure>
+          <figure><img src="images/carrera.jpg" alt="Render of the Carrera" loading="lazy" /><figcaption>carrera.jpg</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======= FOOTER ======= -->
+    <footer id="footer">
+      <a href="#hero" class="top-link" data-hover data-magnetic>BACK TO TOP ↑</a>
+      <p class="foot-line">DEMON SUPER CARS — a fan concept for <em>That Time I Got Reincarnated as a Slime</em>.</p>
+      <p class="foot-tech">Built with Three.js + GSAP · No cars were harmed · Not affiliated with the anime, the studios, or any automaker.</p>
+    </footer>
+
+  </main>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
